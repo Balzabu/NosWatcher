@@ -42,7 +42,7 @@ Run the compiled executable on each machine you want to monitor.
 
 **Note you can skip this step if you want to run the python script directly on clients.**
 
-### Server
+### Server (Dev)
 
 1. Start the Flask server:
 
