@@ -1,8 +1,8 @@
 # NosWatcher
 
-NosWatcher is a client-server application for monitoring the execution status of specific processes on clients. The server collects updates from clients and displays them on a web page.
+NosWatcher is a client-server application for monitoring the execution status of specific processes on virtual machines running in headless mode. The server collects updates from clients and displays them on a web page.
 
-🤖 Created for botters who manage hundreds of clients on as many virtual machines 🤖
+🤖 Created for botters who manage hundreds of clients at the same time 🤖
 
 ![NosWatcher_preview](https://github.com/user-attachments/assets/459ec666-e2fc-4b96-872d-4cd7fe8bdcd7)
 
