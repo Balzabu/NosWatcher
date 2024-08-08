@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Client NosTale</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .title {
+            color: #76ff03;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .subtitle {
+            color: #ffffff;
+        }
+        .card {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #444;
+            transition: transform 0.2s, background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .status {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .online {
+            color: #76ff03;
+        }
+        .offline {
+            color: #ff1744;
+        }
+        .client-status {
+            margin-top: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            width: 100%;
+            text-align: center;
+        }
+        .grayed-out {
+            background-color: #555 !important;
+            border-color: #ff1744 !important;
+            color: #ff1744 !important;
+        }
+        .online-border {
+            border-color: #76ff03 !important;
+        }
+        .remove-button {
+            margin-top: 10px;
+        }
+        .waiting {
+            text-align: center;
+            font-size: 1.5em;
+            color: #76ff03;
+            margin-top: 20px;
+        }
+        .title-offline {
+            color: #ff1744 !important;
+        }
+    </style>
+    <script>
+        function removeClient(clientId) {
+            fetch('/remove_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ client_id: clientId })
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error('Failed to remove client');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const waitingText = document.querySelector('.waiting-text');
+            if (waitingText) {
+                let dots = 0;
+                setInterval(() => {
+                    waitingText.textContent = 'Waiting for devices' + '.'.repeat(dots);
+                    dots = (dots + 1) % 4;
+                }, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered is-size-2">Client Status Dashboard</h1>
+            {% if statuses %}
+            <div class="columns is-multiline">
+                {% for client_id, status in statuses.items() %}
+                <div class="column is-one-quarter-desktop is-half-tablet is-full-mobile">
+                    <div class="card {% if not status['client1'] and not status['client2'] %}grayed-out{% elif status['client1'] or status['client2'] %}online-border{% endif %}">
+                        <div class="card-content">
+                            <p class="title is-4 {% if not status['client1'] and not status['client2'] %}title-offline{% endif %}">{{ client_id }}</p>
+                            <div class="client-status">
+                                <p class="subtitle">Client 1: <span class="status {% if status['client1'] %}online{% else %}offline{% endif %}">{{ 'ONLINE' if status['client1'] else 'OFFLINE' }}</span></p>
+                            </div>
+                            <div class="client-status">
+                                <p class="subtitle">Client 2: <span class="status {% if status['client2'] %}online{% else %}offline{% endif %}">{{ 'ONLINE' if status['client2'] else 'OFFLINE' }}</span></p>
+                            </div>
+                            <button class="button is-danger is-small remove-button" onclick="removeClient('{{ client_id }}')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="waiting">
+                <span class="waiting-text">Waiting for devices</span>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>
