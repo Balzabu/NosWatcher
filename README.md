@@ -80,6 +80,8 @@ NosWatcher/
 │   └── NosWatcher_server.py
 │
 └── README.md
+│
+└── LICENSE
 ```
 
 ## Contributing
