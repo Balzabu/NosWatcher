@@ -75,7 +75,7 @@ NosWatcher/
 ├── client/
 │   ├── icons/
 │   │   └── NosWatcher.ico
-│   ├── NosWatcher_client.py
+│   └── NosWatcher_client.py
 │
 ├── server/
 │   ├── templates/
