@@ -79,7 +79,7 @@ NosWatcher/
 │   ├── statuses.json
 │   └── NosWatcher_server.py
 │
-└── README.md
+├── README.md
 │
 └── LICENSE
 ```
