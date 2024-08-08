@@ -36,7 +36,7 @@ pyinstaller --onefile --noconsole --icon=icons/NosWatcher.ico --add-data "icons/
 This will generate an `.exe` file in the `dist` folder that can be run directly without needing to install Python. 
 Run the compiled executable on each machine you want to monitor.
 
-**Note you can skip this step if you can avoid compiling the script to an `.exe` file is you decide to run the python script directly on the clients.**
+**Note you can skip this step if you want to run the python script directly on clients.**
 
 ### Server
 
