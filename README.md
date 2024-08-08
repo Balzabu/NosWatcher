@@ -31,8 +31,8 @@ pip install flask psutil requests pystray pillow
 
 1. Create an `icons` folder and add your `NosWatcher.ico` icon inside it (or use the one provided).
 2. Modify the `NosWatcher_client.py` file if necessary (e.g., to change the `use_hardcoded_client` flag and the `hardcoded_client_id`, `process_name` or `server_ip`).
-3. Compile the client into an executable using PyInstaller:
-
+3. Compile the client into an executable using PyInstaller
+<br>***Skip this if you want to run the .py file on each client.***
 ```sh
 pyinstaller --onefile --noconsole --icon=icons/NosWatcher.ico --add-data "icons/NosWatcher.ico;icons" NosWatcher_client.py
 ```
@@ -40,7 +40,9 @@ pyinstaller --onefile --noconsole --icon=icons/NosWatcher.ico --add-data "icons/
 This will generate an `.exe` file in the `dist` folder that can be run directly without needing to install Python. 
 Run the compiled executable on each machine you want to monitor.
 
-**Note you can skip this step if you want to run the python script directly on clients.**
+By default, the client searches specifically for two processes that share the same name and distinguishes them using their PIDs.
+If needed, you can increase the number of processes identified and transmitted to the server by making minimal changes to the code.
+
 
 ### Server (Dev)
 
@@ -65,7 +67,7 @@ In all subsequent runs, if the `client_id.txt` file is already present in the sa
 
 ### Server
 
-The server collects updates from the client statuses and saves them to `statuses.json`. The server periodically checks the status updates from clients and sets them to offline if they have not sent updates for more than a minute indicating that either the Clients or the VM itself stopped working.
+The server collects updates from the client statuses and saves them to `statuses.json`. The server periodically checks the status updates from clients and sets them to offline if they have not sent updates for more than a minute indicating that either the Processes or the VM itself stopped working.
 
 ## Project Structure
 
